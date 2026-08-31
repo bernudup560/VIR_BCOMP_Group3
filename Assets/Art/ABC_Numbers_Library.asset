@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27ee3b01069b1644195081f7bc478e7a, type: 3}
+  m_Name: ABC_Numbers_Library
+  m_EditorClassIdentifier: Assembly-CSharp::SignLibrary
+  signs:
+  - id: A
+    handImage: {fileID: 0}
+  - id: B
+    handImage: {fileID: 0}
+  - id: C
+    handImage: {fileID: 0}
+  - id: D
+    handImage: {fileID: 0}
+  - id: E
+    handImage: {fileID: 0}
+  - id: F
+    handImage: {fileID: 0}
+  - id: G
+    handImage: {fileID: 0}
+  - id: H
+    handImage: {fileID: 0}
+  - id: I
+    handImage: {fileID: 0}
+  - id: J
+    handImage: {fileID: 0}
+  - id: K
+    handImage: {fileID: 0}
+  - id: L
+    handImage: {fileID: 0}
+  - id: M
+    handImage: {fileID: 0}
+  - id: N
+    handImage: {fileID: 0}
+  - id: O
+    handImage: {fileID: 0}
+  - id: P
+    handImage: {fileID: 0}
+  - id: Q
+    handImage: {fileID: 0}
+  - id: R
+    handImage: {fileID: 0}
+  - id: S
+    handImage: {fileID: 0}
+  - id: T
+    handImage: {fileID: 0}
+  - id: U
+    handImage: {fileID: 0}
+  - id: V
+    handImage: {fileID: 0}
+  - id: W
+    handImage: {fileID: 0}
+  - id: X
+    handImage: {fileID: 0}
+  - id: Y
+    handImage: {fileID: 0}
+  - id: Z
+    handImage: {fileID: 0}
+  - id: 0
+    handImage: {fileID: 0}
+  - id: 1
+    handImage: {fileID: 0}
+  - id: 2
+    handImage: {fileID: 0}
+  - id: 3
+    handImage: {fileID: 0}
+  - id: 4
+    handImage: {fileID: 0}
+  - id: 5
+    handImage: {fileID: 0}
+  - id: 6
+    handImage: {fileID: 0}
+  - id: 7
+    handImage: {fileID: 0}
+  - id: 8
+    handImage: {fileID: 0}
+  - id: 9
+    handImage: {fileID: 0}
