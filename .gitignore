@@ -26,3 +26,7 @@ sysinfo.txt
 # OS files
 .DS_Store
 Thumbs.db
+
+# Databases and recorded data (never commit)
+*.db
+*.sqlite
