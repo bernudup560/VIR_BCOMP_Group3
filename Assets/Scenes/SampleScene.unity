@@ -1396,6 +1396,52 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 550c29889633bdd4599559a09b584bb9, type: 3}
   - {fileID: 2800000, guid: c0cb1cc548810174a9732fe81237a480, type: 3}
   - {fileID: 2800000, guid: de595302165ee5f448e11307ead7cd2b, type: 3}
+--- !u!1 &281008009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 281008011}
+  - component: {fileID: 281008010}
+  m_Layer: 0
+  m_Name: Mock Hand Data
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &281008010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281008009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcd4caff32824e34791d042bc487e88b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MockHandDataSource
+  movementSpeed: 1
+  movementAmount: 0.05
+--- !u!4 &281008011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281008009}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -5757,6 +5803,66 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c175e625f2dce7b41b84d3fb4dcc05eb, type: 3}
   m_PrefabInstance: {fileID: 880814640}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1498859960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1498859962}
+  - component: {fileID: 1498859961}
+  - component: {fileID: 1498859963}
+  m_Layer: 0
+  m_Name: AI Hand Tracking
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1498859961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498859960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ba3e8567d91e9418d154e1f41eadc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRHandDataReader
+--- !u!4 &1498859962
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498859960}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1498859963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498859960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c625931bcba87d419931306733a458d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRHandDataRecorder
+  handDataSource: {fileID: 281008010}
+  gestureLabel: TEST
+  signerId: Edward
 --- !u!1 &1508309405
 GameObject:
   m_ObjectHideFlags: 0
@@ -7747,3 +7853,5 @@ SceneRoots:
   - {fileID: 1784293749}
   - {fileID: 245643466}
   - {fileID: 1628926163}
+  - {fileID: 1498859962}
+  - {fileID: 281008011}
