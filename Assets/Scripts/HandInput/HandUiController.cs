@@ -42,6 +42,7 @@ public class HandUiController : MonoBehaviour
     [Header("Visible hand")]
     [SerializeField] bool showHandMesh = true;
     [SerializeField] WebcamHandVisualizer handVisualizer;
+    [SerializeField] MediaPipeHandDataSource handDataSource;
 
     [Header("Gesture tuning")]
     [SerializeField] float swipeThreshold = 0.12f;
@@ -71,6 +72,11 @@ public class HandUiController : MonoBehaviour
             handVisualizer = GetComponent<WebcamHandVisualizer>();
         if (handVisualizer == null && showHandMesh)
             handVisualizer = gameObject.AddComponent<WebcamHandVisualizer>();
+
+        if (handDataSource == null)
+            handDataSource = GetComponent<MediaPipeHandDataSource>();
+        if (handDataSource == null)
+            handDataSource = gameObject.AddComponent<MediaPipeHandDataSource>();
     }
 
     void OnEnable()
@@ -161,6 +167,7 @@ public class HandUiController : MonoBehaviour
 
             var landmarks = _result.handLandmarks[0].landmarks;
             UpdateHandMesh(landmarks);
+            handDataSource?.UpdateFromLandmarks(landmarks);
             ProcessHandGestures(landmarks);
         }
     }
@@ -176,6 +183,8 @@ public class HandUiController : MonoBehaviour
     {
         if (handVisualizer != null)
             handVisualizer.SetVisible(false);
+
+        handDataSource?.ClearTracking();
     }
 
     void ProcessHandGestures(List<LandmarkPoint> landmarks)
@@ -321,3 +330,5 @@ public class HandUiController : MonoBehaviour
         MpProtobuf.ResetLogHandler();
     }
 }
+
+

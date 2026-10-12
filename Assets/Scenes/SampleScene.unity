@@ -6254,6 +6254,8 @@ GameObject:
   - component: {fileID: 1644489489}
   - component: {fileID: 1644489490}
   - component: {fileID: 1644489491}
+  - component: {fileID: 1644489493}
+  - component: {fileID: 1644489492}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6333,6 +6335,7 @@ MonoBehaviour:
   logGestures: 1
   showHandMesh: 1
   handVisualizer: {fileID: 1644489491}
+  handDataSource: {fileID: 0}
   swipeThreshold: 0.12
   pinchThreshold: 0.05
   actionCooldownSeconds: 0.7
@@ -6358,6 +6361,33 @@ MonoBehaviour:
   jointRadius: 0.012
   boneRadius: 0.006
   hideWhenLost: 1
+--- !u!114 &1644489492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644489486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c625931bcba87d419931306733a458d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRHandDataRecorder
+  handDataSource: {fileID: 1644489493}
+  gestureLabel: TEST_WEBCAM
+  signerId: Edward
+--- !u!114 &1644489493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644489486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca8a6a2f60dfcef41acf0356703cb71d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MediaPipeHandDataSource
 --- !u!1 &1649281370
 GameObject:
   m_ObjectHideFlags: 0
