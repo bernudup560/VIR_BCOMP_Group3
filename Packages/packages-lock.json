@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.github.homuler.mediapipe": {
+      "version": "file:C:/Belgium campus Projects/com.github.homuler.mediapipe-0.16.3.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.test-framework": "1.0.0"
+      }
+    },
     "com.meta.xr.sdk.core": {
       "version": "85.0.0",
       "depth": 0,

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.github.homuler.mediapipe": "file:C:/Belgium campus Projects/com.github.homuler.mediapipe-0.16.3.tgz",
     "com.meta.xr.sdk.core": "85.0.0",
     "com.unity.ai.navigation": "2.0.11",
     "com.unity.collab-proxy": "2.11.4",

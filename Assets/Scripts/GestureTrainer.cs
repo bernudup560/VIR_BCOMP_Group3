@@ -39,6 +39,17 @@ public class GestureTrainer : MonoBehaviour
     float signTimeLeft;
     int nextIndex;
 
+    /// <summary>Letter/number currently shown (used by hand UI confirm).</summary>
+    public string CurrentSignId => currentSignId;
+
+    /// <summary>Skip to the next flashcard (hand swipe / UI).</summary>
+    public void AdvanceToNextSign()
+    {
+        if (timeLeft <= 0f)
+            return;
+        ShowNextSign();
+    }
+
     void Start()
     {
         timeLeft = lessonTime;

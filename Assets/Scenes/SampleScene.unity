@@ -1162,7 +1162,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 193654588}
-  - component: {fileID: 193654591}
   - component: {fileID: 193654590}
   - component: {fileID: 193654589}
   m_Layer: 0
@@ -1171,7 +1170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &193654588
 Transform:
   m_ObjectHideFlags: 0
@@ -1195,7 +1194,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193654587}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
   m_Name: 
@@ -1213,7 +1212,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193654587}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21096d6d8059a5343a1f2b4d050e4789, type: 3}
   m_Name: 
@@ -1222,21 +1221,6 @@ MonoBehaviour:
   m_HandMeshRenderer: {fileID: 0}
   m_ShowMeshWhenTrackingIsAcquired: 1
   m_HideMeshWhenTrackingIsLost: 1
---- !u!114 &193654591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 193654587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07aaccfa1bc2417d8fbd0d9e2e102c2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.XR.Hands::UnityEngine.XR.Hands.XRHandSkeletonDriver
-  m_XRHandTrackingEvents: {fileID: 0}
-  m_RootTransform: {fileID: 0}
-  m_JointTransformReferences: []
 --- !u!1 &245643462
 GameObject:
   m_ObjectHideFlags: 0
@@ -3081,7 +3065,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 728903652}
-  - component: {fileID: 728903655}
   - component: {fileID: 728903654}
   - component: {fileID: 728903653}
   m_Layer: 0
@@ -3090,7 +3073,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &728903652
 Transform:
   m_ObjectHideFlags: 0
@@ -3114,7 +3097,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728903651}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
   m_Name: 
@@ -3132,7 +3115,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728903651}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21096d6d8059a5343a1f2b4d050e4789, type: 3}
   m_Name: 
@@ -3141,21 +3124,6 @@ MonoBehaviour:
   m_HandMeshRenderer: {fileID: 0}
   m_ShowMeshWhenTrackingIsAcquired: 1
   m_HideMeshWhenTrackingIsLost: 1
---- !u!114 &728903655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728903651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07aaccfa1bc2417d8fbd0d9e2e102c2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.XR.Hands::UnityEngine.XR.Hands.XRHandSkeletonDriver
-  m_XRHandTrackingEvents: {fileID: 0}
-  m_RootTransform: {fileID: 0}
-  m_JointTransformReferences: []
 --- !u!1 &762452910
 GameObject:
   m_ObjectHideFlags: 0
@@ -6284,6 +6252,8 @@ GameObject:
   - component: {fileID: 1644489488}
   - component: {fileID: 1644489487}
   - component: {fileID: 1644489489}
+  - component: {fileID: 1644489490}
+  - component: {fileID: 1644489491}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6342,6 +6312,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandTrackerDebug
   leftHand: {fileID: 728903652}
   rightHand: {fileID: 193654588}
+--- !u!114 &1644489490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644489486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e3c1a94f0d4e6a8c2d5f1a9e0b3c47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HandUiController
+  uiTarget: 0
+  gestureTrainer: {fileID: 1644489487}
+  alphabetController: {fileID: 245643467}
+  numberController: {fileID: 1628926164}
+  preferredCameraIndex: 0
+  flipHorizontally: 1
+  logGestures: 1
+  showHandMesh: 1
+  handVisualizer: {fileID: 1644489491}
+  swipeThreshold: 0.12
+  pinchThreshold: 0.05
+  actionCooldownSeconds: 0.7
+--- !u!114 &1644489491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644489486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f8a2b16c3e4f9a8b7c6d5e4f3a2b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WebcamHandVisualizer
+  targetCamera: {fileID: 0}
+  distanceFromCamera: 0.55
+  handWidth: 0.28
+  handHeight: 0.28
+  depthScale: 0.18
+  jointColor: {r: 1, g: 0.82, b: 0.68, a: 1}
+  boneColor: {r: 0.95, g: 0.72, b: 0.55, a: 1}
+  jointRadius: 0.012
+  boneRadius: 0.006
+  hideWhenLost: 1
 --- !u!1 &1649281370
 GameObject:
   m_ObjectHideFlags: 0
