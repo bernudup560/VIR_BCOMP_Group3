@@ -8,6 +8,8 @@ public class GestureRecording
 {
     public string label;
     public string signerId;
+    public string dataSource;
+    public string recordedAt;
     public List<HandFrameData> frames = new();
 }
 
@@ -22,6 +24,11 @@ public class XRHandDataRecorder : MonoBehaviour
 
     private GestureRecording currentRecording;
     private bool isRecording;
+
+    private void Start()
+    {
+        ReportDataSource();
+    }
 
     private void Update()
     {
@@ -41,6 +48,38 @@ public class XRHandDataRecorder : MonoBehaviour
         }
     }
 
+    private void ReportDataSource()
+    {
+        if (handDataSource == null)
+        {
+            Debug.LogError(
+                "XRHandDataRecorder: NO HAND DATA SOURCE ASSIGNED."
+            );
+            return;
+        }
+
+        string sourceName = handDataSource.GetType().Name;
+
+        if (handDataSource is MockHandDataSource)
+        {
+            Debug.LogWarning(
+                "XRHandDataRecorder: USING MOCK HAND DATA."
+            );
+        }
+        else if (handDataSource is XRHandDataReader)
+        {
+            Debug.Log(
+                "XRHandDataRecorder: USING LIVE XR HAND DATA."
+            );
+        }
+        else
+        {
+            Debug.Log(
+                $"XRHandDataRecorder: Using source {sourceName}."
+            );
+        }
+    }
+
     public void StartRecording()
     {
         if (isRecording)
@@ -51,17 +90,29 @@ public class XRHandDataRecorder : MonoBehaviour
             return;
         }
 
+        if (handDataSource == null)
+        {
+            Debug.LogError(
+                "XRHandDataRecorder: Cannot record because no Hand Data Source is assigned."
+            );
+            return;
+        }
+
+        string sourceName = handDataSource.GetType().Name;
+
         currentRecording = new GestureRecording
         {
             label = gestureLabel,
             signerId = signerId,
+            dataSource = sourceName,
+            recordedAt = DateTime.Now.ToString("o"),
             frames = new List<HandFrameData>()
         };
 
         isRecording = true;
 
         Debug.Log(
-            $"XRHandDataRecorder: Recording started for '{gestureLabel}'."
+            $"XRHandDataRecorder: START '{gestureLabel}' | signer={signerId} | source={sourceName}"
         );
     }
 
@@ -72,6 +123,28 @@ public class XRHandDataRecorder : MonoBehaviour
 
         isRecording = false;
 
+        int leftTrackedFrames = 0;
+        int rightTrackedFrames = 0;
+
+        foreach (HandFrameData frame in currentRecording.frames)
+        {
+            if (frame.leftHand != null && frame.leftHand.isTracked)
+                leftTrackedFrames++;
+
+            if (frame.rightHand != null && frame.rightHand.isTracked)
+                rightTrackedFrames++;
+        }
+
+        int totalFrames = currentRecording.frames.Count;
+
+        if (totalFrames == 0)
+        {
+            Debug.LogError(
+                "XRHandDataRecorder: No frames were captured. Recording not saved."
+            );
+            return;
+        }
+
         string json = JsonUtility.ToJson(currentRecording, true);
 
         string recordingsFolder = Path.Combine(
@@ -81,12 +154,11 @@ public class XRHandDataRecorder : MonoBehaviour
 
         Directory.CreateDirectory(recordingsFolder);
 
-        string safeLabel = string.IsNullOrWhiteSpace(gestureLabel)
-            ? "UNLABELLED"
-            : gestureLabel.Replace(" ", "_");
+        string safeLabel = MakeSafeFilePart(gestureLabel);
+        string safeSigner = MakeSafeFilePart(signerId);
 
         string fileName =
-            $"{safeLabel}_{DateTime.Now:yyyyMMdd_HHmmss}.json";
+            $"{safeLabel}_{safeSigner}_{DateTime.Now:yyyyMMdd_HHmmss}.json";
 
         string filePath = Path.Combine(
             recordingsFolder,
@@ -96,8 +168,31 @@ public class XRHandDataRecorder : MonoBehaviour
         File.WriteAllText(filePath, json);
 
         Debug.Log(
-            $"XRHandDataRecorder: Saved {currentRecording.frames.Count} frames to {filePath}"
+            $"XRHandDataRecorder: SAVED '{gestureLabel}' | " +
+            $"frames={totalFrames} | " +
+            $"leftTracked={leftTrackedFrames}/{totalFrames} | " +
+            $"rightTracked={rightTrackedFrames}/{totalFrames} | " +
+            $"source={currentRecording.dataSource} | " +
+            $"file={filePath}"
         );
+
+        if (leftTrackedFrames == 0 && rightTrackedFrames == 0)
+        {
+            Debug.LogWarning(
+                "XRHandDataRecorder: WARNING - recording contains NO tracked hands."
+            );
+        }
+    }
+
+    private string MakeSafeFilePart(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return "UNKNOWN";
+
+        foreach (char invalid in Path.GetInvalidFileNameChars())
+            value = value.Replace(invalid, '_');
+
+        return value.Replace(" ", "_");
     }
 
     private HandFrameData CopyFrame(HandFrameData source)
