@@ -72,22 +72,14 @@ def pose_distance(a, b):
 
 
 training_poses = defaultdict(list)
-unknown_recording = None
-unknown_file = None
-unknown_mtime = -1
+unknown_recordings = []
 
 for path in DATA_DIR.glob("*.json"):
     recording = load_recording(path)
     label = str(recording["label"]).strip()
 
     if label.lower() == "unknown":
-        mtime = path.stat().st_mtime
-
-        if mtime > unknown_mtime:
-            unknown_mtime = mtime
-            unknown_recording = recording
-            unknown_file = path.name
-
+        unknown_recordings.append((path, recording))
         continue
 
     training_poses[label].append(average_pose(recording))
@@ -100,38 +92,61 @@ for label, poses in training_poses.items():
 
 
 print("Training samples:")
+
 for label in sorted(training_poses):
     print(f"  Gesture {label}: {len(training_poses[label])} recordings")
 
 
-if unknown_recording is None:
+if not unknown_recordings:
     print()
-    print("No Unknown recording found.")
+    print("No Unknown recordings found.")
     raise SystemExit
 
 
-unknown_pose = average_pose(unknown_recording)
-
-results = []
-
-for label, template_pose in templates.items():
-    distance = pose_distance(unknown_pose, template_pose)
-    results.append((label, distance))
-
-results.sort(key=lambda x: x[1])
-
-print()
-print(f"Testing: {unknown_file}")
-print()
-
-print("Distances:")
-for label, distance in results:
-    print(f"  Gesture {label}: {distance:.4f}")
-
-predicted_label, best_distance = results[0]
-
-print()
-print(f"PREDICTION: Gesture {predicted_label}")
-print(f"Distance: {best_distance:.4f}")
+unknown_recordings.sort(
+    key=lambda item: item[0].stat().st_mtime
+)
 
 
+for unknown_path, unknown_recording in unknown_recordings:
+
+    unknown_pose = average_pose(unknown_recording)
+
+    results = []
+
+    for label, template_pose in templates.items():
+        distance = pose_distance(
+            unknown_pose,
+            template_pose
+        )
+
+        results.append((label, distance))
+
+    results.sort(key=lambda x: x[1])
+
+    print()
+    print(f"Testing: {unknown_path.name}")
+    print()
+
+    print("Distances:")
+
+    for label, distance in results:
+        print(
+            f"  Gesture {label}: "
+            f"{distance:.4f}"
+        )
+
+    predicted_label, best_distance = results[0]
+
+    print()
+    print(
+        f"PREDICTION: Gesture "
+        f"{predicted_label}"
+    )
+
+    print(
+        f"Distance: "
+        f"{best_distance:.4f}"
+    )
+
+    print("-" * 40)
