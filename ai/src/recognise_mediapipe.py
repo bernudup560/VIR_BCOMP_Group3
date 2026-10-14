@@ -71,6 +71,15 @@ def pose_distance(a, b):
     return math.sqrt(total / len(a))
 
 
+def relative_confidence(best_distance, second_distance):
+    if second_distance <= 0:
+        return 100.0
+
+    confidence = (1.0 - (best_distance / second_distance)) * 100.0
+
+    return max(0.0, min(100.0, confidence))
+
+
 training_poses = defaultdict(list)
 unknown_recordings = []
 
@@ -91,6 +100,12 @@ for label, poses in training_poses.items():
     templates[label] = average_template(poses)
 
 
+print()
+print("=" * 55)
+print("MEDIAPIPE GESTURE RECOGNITION PROTOTYPE")
+print("=" * 55)
+
+print()
 print("Training samples:")
 
 for label in sorted(training_poses):
@@ -107,11 +122,12 @@ unknown_recordings.sort(
     key=lambda item: item[0].stat().st_mtime
 )
 
+summary = []
+
 
 for unknown_path, unknown_recording in unknown_recordings:
 
     unknown_pose = average_pose(unknown_recording)
-
     results = []
 
     for label, template_pose in templates.items():
@@ -124,9 +140,22 @@ for unknown_path, unknown_recording in unknown_recordings:
 
     results.sort(key=lambda x: x[1])
 
+    predicted_label, best_distance = results[0]
+
+    if len(results) > 1:
+        second_distance = results[1][1]
+
+        confidence = relative_confidence(
+            best_distance,
+            second_distance
+        )
+    else:
+        confidence = 100.0
+
     print()
+    print("-" * 55)
     print(f"Testing: {unknown_path.name}")
-    print()
+    print("-" * 55)
 
     print("Distances:")
 
@@ -136,17 +165,35 @@ for unknown_path, unknown_recording in unknown_recordings:
             f"{distance:.4f}"
         )
 
-    predicted_label, best_distance = results[0]
-
     print()
+    print(f"PREDICTION : Gesture {predicted_label}")
+    print(f"DISTANCE   : {best_distance:.4f}")
+    print(f"CONFIDENCE : {confidence:.1f}%")
+
+    summary.append(
+        (
+            unknown_path.name,
+            predicted_label,
+            confidence
+        )
+    )
+
+
+print()
+print("=" * 55)
+print("RECOGNITION SUMMARY")
+print("=" * 55)
+
+for filename, label, confidence in summary:
     print(
-        f"PREDICTION: Gesture "
-        f"{predicted_label}"
+        f"{filename}"
     )
 
     print(
-        f"Distance: "
-        f"{best_distance:.4f}"
+        f"  -> Gesture {label} "
+        f"({confidence:.1f}% relative confidence)"
     )
 
-    print("-" * 40)
+print()
+print(f"Total test recordings: {len(summary)}")
+print("=" * 55)
