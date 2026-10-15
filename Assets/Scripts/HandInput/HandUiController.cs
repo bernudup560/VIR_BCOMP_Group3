@@ -168,7 +168,9 @@ public class HandUiController : MonoBehaviour
             var landmarks = _result.handLandmarks[0].landmarks;
             UpdateHandMesh(landmarks);
             handDataSource?.UpdateFromLandmarks(landmarks);
-            ProcessHandGestures(landmarks);
+            // Gesture navigation disabled during SASL training.
+            // MediaPipe tracking still runs normally.
+            // ProcessHandGestures(landmarks);
         }
     }
 
@@ -330,5 +332,6 @@ public class HandUiController : MonoBehaviour
         MpProtobuf.ResetLogHandler();
     }
 }
+
 
 

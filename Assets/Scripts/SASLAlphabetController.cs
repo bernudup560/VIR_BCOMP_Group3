@@ -9,6 +9,9 @@ public class SASLAlphabetController : MonoBehaviour
     private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private int currentLetter = 0;
 
+    private string feedbackMessage = "";
+    private float feedbackUntil = 0f;
+
     public string CurrentLetter =>
         alphabet[currentLetter].ToString();
 
@@ -19,11 +22,25 @@ public class SASLAlphabetController : MonoBehaviour
 
     void Update()
     {
+        // Alphabet navigation
         if (Input.GetKeyDown(KeyCode.N))
             NextLetter();
 
         if (Input.GetKeyDown(KeyCode.P))
             PreviousLetter();
+
+        // Temporary fake recogniser
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            CheckPrediction("A");
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            CheckPrediction("B");
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            CheckPrediction("C");
+
+        if (Time.time > feedbackUntil)
+            feedbackMessage = "";
     }
 
     public void NextLetter()
@@ -44,12 +61,37 @@ public class SASLAlphabetController : MonoBehaviour
         }
     }
 
+    public void CheckPrediction(string predictedLetter)
+    {
+        if (string.IsNullOrWhiteSpace(predictedLetter))
+            return;
+
+        predictedLetter =
+            predictedLetter.Trim().ToUpperInvariant();
+
+        bool correct =
+            predictedLetter == CurrentLetter;
+
+        feedbackMessage = correct
+            ? "Correct!"
+            : $"Try again - detected {predictedLetter}";
+
+        feedbackUntil = Time.time + 2f;
+
+        Debug.Log(
+            $"Recognition: expected {CurrentLetter}, " +
+            $"detected {predictedLetter}, correct={correct}"
+        );
+    }
+
     void UpdateLetter()
     {
-        string letter = alphabet[currentLetter].ToString();
+        string letter = CurrentLetter;
 
         if (letterText != null)
             letterText.text = letter;
+
+        feedbackMessage = "";
 
         Texture2D texture =
             Resources.Load<Texture2D>($"Signs/{letter}");
@@ -57,6 +99,7 @@ public class SASLAlphabetController : MonoBehaviour
         if (texture != null && handSignRenderer != null)
         {
             handSignRenderer.material.mainTexture = texture;
+
             Debug.Log(
                 $"SASLAlphabetController: showing sign {letter}"
             );
@@ -68,5 +111,26 @@ public class SASLAlphabetController : MonoBehaviour
             );
         }
     }
-}
 
+    void OnGUI()
+    {
+        if (string.IsNullOrEmpty(feedbackMessage))
+            return;
+
+        GUIStyle style = new GUIStyle(GUI.skin.box);
+        style.fontSize = 28;
+        style.alignment = TextAnchor.MiddleCenter;
+
+        float width = 420f;
+        float height = 70f;
+
+        Rect box = new Rect(
+            (Screen.width - width) / 2f,
+            Screen.height - 120f,
+            width,
+            height
+        );
+
+        GUI.Box(box, feedbackMessage, style);
+    }
+}
