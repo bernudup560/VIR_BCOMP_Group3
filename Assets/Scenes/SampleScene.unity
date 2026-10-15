@@ -6374,7 +6374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::XRHandDataRecorder
   handDataSource: {fileID: 1644489493}
-  gestureLabel: TEST_WEBCAM
+  gestureLabel: 'Unknown '
   signerId: Edward
 --- !u!114 &1644489493
 MonoBehaviour:

@@ -5,14 +5,25 @@ public class SASLAlphabetController : MonoBehaviour
 {
     public TMP_Text letterText;
     public Renderer handSignRenderer;
-    public Texture2D[] handSigns;
 
     private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private int currentLetter = 0;
 
+    public string CurrentLetter =>
+        alphabet[currentLetter].ToString();
+
     void Start()
     {
         UpdateLetter();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+            NextLetter();
+
+        if (Input.GetKeyDown(KeyCode.P))
+            PreviousLetter();
     }
 
     public void NextLetter()
@@ -35,11 +46,27 @@ public class SASLAlphabetController : MonoBehaviour
 
     void UpdateLetter()
     {
-        letterText.text = alphabet[currentLetter].ToString();
+        string letter = alphabet[currentLetter].ToString();
 
-        if (handSigns.Length > currentLetter)
+        if (letterText != null)
+            letterText.text = letter;
+
+        Texture2D texture =
+            Resources.Load<Texture2D>($"Signs/{letter}");
+
+        if (texture != null && handSignRenderer != null)
         {
-            handSignRenderer.material.mainTexture = handSigns[currentLetter];
+            handSignRenderer.material.mainTexture = texture;
+            Debug.Log(
+                $"SASLAlphabetController: showing sign {letter}"
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                $"SASLAlphabetController: no image found for {letter}"
+            );
         }
     }
 }
+
