@@ -386,11 +386,36 @@ public class SimpleSASLRecognizer : MonoBehaviour
 
     void LoadTemplates()
     {
-        if (!File.Exists(SavePath))
-            return;
+        string loadPath = SavePath;
+
+        if (!File.Exists(loadPath))
+        {
+            string bundledPath =
+                Path.Combine(
+                    Application.streamingAssetsPath,
+                    "SASLTemplatesMulti.json"
+                );
+
+            if (File.Exists(bundledPath))
+            {
+                loadPath = bundledPath;
+
+                Debug.Log(
+                    "No local SASL templates found. " +
+                    "Loading bundled default templates."
+                );
+            }
+            else
+            {
+                Debug.LogWarning(
+                    "No SASL templates found."
+                );
+                return;
+            }
+        }
 
         string json =
-            File.ReadAllText(SavePath);
+            File.ReadAllText(loadPath);
 
         TemplateCollection loaded =
             JsonUtility.FromJson
@@ -411,10 +436,11 @@ public class SimpleSASLRecognizer : MonoBehaviour
 
         Debug.Log(
             $"Loaded {templateData.templates.Count} " +
-            $"letters with {totalSamples} samples."
+            $"letters with {totalSamples} samples from {loadPath}"
         );
     }
 }
+
 
 
 
